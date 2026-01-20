@@ -1,7 +1,8 @@
 import "./App.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import HabitList from "./components/HabbitList/HabbitList";
+import HabitList from "./components/HabitList/HabitList";
+import ReminderList from "./components/ReminderList/ReminderList";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <main>
         <div className="app-container">
           <HabitList />
+          <ReminderList />
         </div>
       </main>
 

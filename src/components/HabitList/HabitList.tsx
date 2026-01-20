@@ -1,10 +1,11 @@
-import "./HabbitList.css";
+import "./HabitList.css";
 
 function HabitList() {
   const habits = [
-    { id: 1, name: "Drink Water" },
-    { id: 2, name: "Exercise" },
-    { id: 3, name: "Read 10 Pages" },
+    { id: 1, name: "Drink 5 glasses of Water" },
+    { id: 2, name: "Read 10 pages of a book a day" },
+    { id: 3, name: "Walk atleast 10k steps a day" },
+    { id: 4, name: "reduce screentime on phone" },
   ];
 
   return (

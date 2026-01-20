@@ -1,0 +1,46 @@
+.reminder-list {
+  padding: 1rem;
+}
+ 
+.reminder-list h2 {
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+ 
+.reminder-list ul {
+  list-style: none;
+  padding: 0;
+}
+ 
+.reminder-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f1f5f9;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+}
+ 
+.reminder-text {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+ 
+.reminder-time {
+  font-size: 0.9rem;
+  color: #475569;
+}
+ 
+.remove-btn {
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+ 
+.remove-btn:hover {
+  opacity: 0.9;
+}
