@@ -1,0 +1,47 @@
+.habit-list {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.habit-list h2 {
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.habit-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.habit-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.remove-btn {
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-habit {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.add-btn {
+  background-color: #4f46e5;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}

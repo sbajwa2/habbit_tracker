@@ -1,0 +1,25 @@
+.app-footer {
+  background-color: #f1f5f9;
+  color: #475569;
+  padding: 1.25rem 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.app-footer p {
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+.app-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.app-footer li {
+  font-size: 0.9rem;
+}
