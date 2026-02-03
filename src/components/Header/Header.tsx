@@ -4,10 +4,12 @@ interface HeaderProps {
   title: string;
 }
 
-export default function Header({ title }: HeaderProps) {
+function Header({ title }: HeaderProps) {
   return (
-    <header className="app-header">
+    <header className="header">
       <h1>{title}</h1>
     </header>
   );
 }
+
+export default Header;

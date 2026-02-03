@@ -1,13 +1,12 @@
-.app-header {
-  background-color: #4f46e5;
-  color: #ffffff;
-  padding: 1.25rem 1rem;
+.header {
+  background-color: #4f46e5;;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.app-header h1 {
+.header h1 {
   margin: 0;
   text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  color:  #ffffff;
+  font-size: 1.75rem;
 }

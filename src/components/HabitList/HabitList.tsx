@@ -1,34 +1,30 @@
+import type { Habit } from "../../layout/Layout";
 import "./HabitList.css";
 
-function HabitList() {
-  const habits = [
-    { id: 1, name: "Drink 5 glasses of Water" },
-    { id: 2, name: "Read 10 pages of a book a day" },
-    { id: 3, name: "Walk atleast 10k steps a day" },
-    { id: 4, name: "reduce screentime on phone" },
-  ];
+interface Props {
+  habits: Habit[];
+  setHabits: Function;
+}
+
+function HabitList({ habits, setHabits }: Props) {
+  const removeHabit = (id: number) => {
+    setHabits(habits.filter((h) => h.id !== id));
+  };
 
   return (
-    <section className="habit-list">
-      <h2>My Habits</h2>
-
-      <ul>
-        {habits.map((habit) => (
-          <li key={habit.id} className="habit-item">
-            <span>{habit.name}</span>
-            <button className="remove-btn" type="button">
-              Remove
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      <div className="add-habit">
-        <button className="add-btn" type="button">
-          Add Habit
-        </button>
-      </div>
-    </section>
+    <ul className="habit-list">
+      {habits.map((habit) => (
+        <li key={habit.id} className="habit-item">
+          {habit.name}
+          <button
+            className="remove-btn"
+            onClick={() => removeHabit(habit.id)}
+          >
+            Remove
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 }
 
