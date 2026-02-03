@@ -10,13 +10,19 @@ body {
   color: #1e293b;
 }
 
+html,
+body,
 #root {
+  height: 100%;
+}
+
+.app-root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-main {
+.app-main {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -28,6 +34,6 @@ main {
   max-width: 900px;
   background-color: #ffffff;
   border-radius: 8px;
-  padding: 1.5rem;
+  padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }

@@ -1,26 +1,17 @@
-import "./App.css";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import HabitList from "./components/HabitList/HabitList";
-import ReminderList from "./components/ReminderList/ReminderList";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./layout/Layout";
+import HomePage from "./pages/HomePage";
+import HabitPage from "./pages/HabitsPage";
 
 function App() {
   return (
-    <>
-      <Header title="Habit Tracker" />
-
-      <main>
-        <div className="app-container">
-          <HabitList />
-          <ReminderList />
-        </div>
-      </main>
-
-      <Footer members={["Smile", "Navpreet Kaur"]} />
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="habits" element={<HabitPage />} />
+      </Route>
+    </Routes>
   );
 }
 
 export default App;
-
-
