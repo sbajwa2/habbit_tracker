@@ -1,16 +1,15 @@
 import { useState } from "react";
-import type { Reminder } from "./../../pages/ReminderPage";
+import type { Reminder } from "../../types/reminder";
 import "./ReminderForm.css";
 
 type ReminderFormProps = {
-  reminders: Reminder[];
-  setReminders: React.Dispatch<React.SetStateAction<Reminder[]>>;
+  onAdd: (reminder: Reminder) => void;
 };
 
-export default function ReminderForm({ reminders, setReminders }: ReminderFormProps) {
-  const [text, setText] = useState<string>("");
-  const [time, setTime] = useState<string>("");
-  const [error, setError] = useState<string>("");
+export default function ReminderForm({ onAdd }: ReminderFormProps) {
+  const [text, setText] = useState("");
+  const [time, setTime] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,13 +20,12 @@ export default function ReminderForm({ reminders, setReminders }: ReminderFormPr
       return;
     }
 
-    const newReminder: Reminder = {
+    onAdd({
       id: Date.now(),
       text: cleanText,
       time: time.trim() || "Anytime",
-    };
+    });
 
-    setReminders([...reminders, newReminder]);
     setText("");
     setTime("");
     setError("");
@@ -38,21 +36,19 @@ export default function ReminderForm({ reminders, setReminders }: ReminderFormPr
       <div className="reminder-form-row">
         <input
           className="reminder-input"
-          type="text"
-          placeholder="Enter reminder..."
           value={text}
           onChange={(e) => {
             setText(e.target.value);
             if (error) setError("");
           }}
+          placeholder="Enter reminder..."
         />
 
         <input
           className="reminder-input"
-          type="text"
-          placeholder="Time (e.g. 9:30 AM)"
           value={time}
           onChange={(e) => setTime(e.target.value)}
+          placeholder="Time (e.g. 9:30 AM)"
         />
 
         <button className="add-btn" type="submit">
