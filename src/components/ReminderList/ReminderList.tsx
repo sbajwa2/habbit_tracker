@@ -1,22 +1,18 @@
 import "./ReminderList.css";
-import type { Reminder } from "./../../pages/ReminderPage";
+import type { Reminder } from "../../types/reminder";
 
-type ReminderListProps = {
+export type ReminderListProps = {
   reminders: Reminder[];
-  setReminders: React.Dispatch<React.SetStateAction<Reminder[]>>;
+  onRemove: (id: number) => void;
 };
 
-export default function ReminderList({ reminders, setReminders }: ReminderListProps) {
-  const handleRemove = (id: number) => {
-    setReminders((prev) => prev.filter((r) => r.id !== id));
-  };
-
+export default function ReminderList({ reminders, onRemove }: ReminderListProps) {
   return (
     <section className="reminder-list">
       <h2>Reminders</h2>
 
       {reminders.length === 0 ? (
-        <p>No reminders left</p>
+        <p>No reminders left 🎉</p>
       ) : (
         <ul>
           {reminders.map((reminder) => (
@@ -29,7 +25,7 @@ export default function ReminderList({ reminders, setReminders }: ReminderListPr
               <button
                 type="button"
                 className="remove-btn"
-                onClick={() => handleRemove(reminder.id)}
+                onClick={() => onRemove(reminder.id)}
               >
                 Remove
               </button>
