@@ -1,17 +1,20 @@
-import { useOutletContext } from "react-router-dom";
-import type { Habit } from ".././layout/Layout";
 import HabitForm from "../components/HabitForm/HabitForm";
 import HabitList from "../components/HabitList/HabitList";
+import { useHabits } from "../hooks/useHabits";
 
 function HabitPage() {
-  const { habits, setHabits } =
-    useOutletContext<{ habits: Habit[]; setHabits: Function }>();
+  const { habits, addHabit, toggleHabit, removeHabit } = useHabits();
 
   return (
     <section>
       <h2>My Habits</h2>
-      <HabitForm habits={habits} setHabits={setHabits} />
-      <HabitList habits={habits} setHabits={setHabits} />
+      <HabitForm addHabit={addHabit} />
+
+      <HabitList
+        habits={habits}
+        toggleHabit={toggleHabit}
+        removeHabit={removeHabit}
+      />
     </section>
   );
 }

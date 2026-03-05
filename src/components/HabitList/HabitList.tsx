@@ -1,27 +1,35 @@
-import type { Habit } from "../../layout/Layout";
+import type { Habit } from "../../types/Habit";
 import "./HabitList.css";
 
 interface Props {
   habits: Habit[];
-  setHabits: Function;
+  toggleHabit: (id: string) => void;
+  removeHabit: (id: string) => void;
 }
 
-function HabitList({ habits, setHabits }: Props) {
-  const removeHabit = (id: number) => {
-    setHabits(habits.filter((h) => h.id !== id));
-  };
-
+function HabitList({ habits, toggleHabit, removeHabit }: Props) {
   return (
     <ul className="habit-list">
       {habits.map((habit) => (
         <li key={habit.id} className="habit-item">
-          {habit.name}
+
+          <input
+            type="checkbox"
+            checked={habit.completed}
+            onChange={() => toggleHabit(habit.id)}
+          />
+
+          <span className={habit.completed ? "completed" : ""}>
+            {habit.name}
+          </span>
+
           <button
             className="remove-btn"
             onClick={() => removeHabit(habit.id)}
           >
             Remove
           </button>
+
         </li>
       ))}
     </ul>
