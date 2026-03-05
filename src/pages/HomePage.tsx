@@ -1,8 +1,7 @@
-import { useOutletContext } from "react-router-dom";
-import type { Habit } from ".././layout/Layout";
+import { useHabits } from "../hooks/useHabits";
 
 function HomePage() {
-  const { habits } = useOutletContext<{ habits: Habit[] }>();
+  const { habits } = useHabits();
 
   return (
     <section>
