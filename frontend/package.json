@@ -1,18 +1,13 @@
 {
-  "name": "habit-tracker",
+  "name": "frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
   "scripts": {
-    "dev": "npm run -w frontend dev",
-    "dev:backend": "npm run -w backend dev",
-    "build": "npm run -w frontend build && npm run -w backend build",
-    "lint": "npm run -w frontend lint",
-    "preview": "npm run -w frontend preview"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.2.4",
