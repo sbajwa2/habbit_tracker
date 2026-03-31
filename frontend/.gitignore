@@ -39,6 +39,3 @@ backend/dev.db
 *.njsproj
 *.sln
 *.sw?
-
-# Temporary handoff artifacts
-handoff/
