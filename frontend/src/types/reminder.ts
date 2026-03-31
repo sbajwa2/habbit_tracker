@@ -1,5 +1,6 @@
 export interface Reminder {
   id: number;
-  text: string;
+  title: string;
   time: string;
+  createdAt?: string;
 }

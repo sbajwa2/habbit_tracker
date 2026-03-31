@@ -2,19 +2,23 @@ import type { Reminder } from "../types/reminder";
 import { reminderRepository } from "../repositories/ReminderRepository";
 
 class ReminderService {
-  getReminders(): Reminder[] {
+  async getReminders(): Promise<Reminder[]> {
     return reminderRepository.getAll();
   }
 
-  addReminder(reminder: Reminder): void {
-    if (!reminder.text.trim()) {
-      throw new Error("Reminder text cannot be empty");
+  async addReminder(title: string, time: string): Promise<void> {
+    if (!title.trim()) {
+      throw new Error("Reminder title cannot be empty");
     }
-    reminderRepository.add(reminder);
+
+    await reminderRepository.add({
+      title: title.trim(),
+      time: time.trim() || "Anytime",
+    });
   }
 
-  removeReminder(id: number): void {
-    reminderRepository.remove(id);
+  async removeReminder(id: number): Promise<void> {
+    await reminderRepository.remove(id);
   }
 }
 
