@@ -22,3 +22,8 @@ export * from './enums';
  * 
  */
 export type Habit = Prisma.HabitModel
+/**
+ * Model Reminder
+ * 
+ */
+export type Reminder = Prisma.ReminderModel

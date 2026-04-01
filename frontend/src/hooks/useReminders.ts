@@ -4,24 +4,43 @@ import { reminderService } from "../services/ReminderService";
 
 export function useReminders() {
   const [reminders, setReminders] = useState<Reminder[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const refresh = () => {
-    setReminders(reminderService.getReminders());
+  const refresh = async () => {
+    try {
+      setError(null);
+      setReminders(await reminderService.getReminders());
+    } catch (loadError) {
+      console.error("Failed to load reminders", loadError);
+      setError("Could not load reminders.");
+    }
   };
 
   useEffect(() => {
-    refresh(); 
+    void refresh();
   }, []);
 
-  const addReminder = (reminder: Reminder) => {
-    reminderService.addReminder(reminder);
-    refresh(); 
+  const addReminder = async (title: string, time: string) => {
+    try {
+      setError(null);
+      await reminderService.addReminder(title, time);
+      await refresh();
+    } catch (addError) {
+      console.error("Failed to add reminder", addError);
+      setError("Could not add reminder. Check backend and database connection.");
+    }
   };
 
-  const removeReminder = (id: number) => {
-    reminderService.removeReminder(id);
-    refresh();
+  const removeReminder = async (id: number) => {
+    try {
+      setError(null);
+      await reminderService.removeReminder(id);
+      await refresh();
+    } catch (removeError) {
+      console.error("Failed to remove reminder", removeError);
+      setError("Could not remove reminder. Check backend and database connection.");
+    }
   };
 
-  return { reminders, addReminder, removeReminder };
+  return { reminders, error, addReminder, removeReminder };
 }

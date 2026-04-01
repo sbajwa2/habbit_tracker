@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import habitRoutes from "./routes/habitRoutes";
+import reminderRoutes from "./routes/reminderRoutes";
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(
 
 app.use(express.json());
 app.use("/api/habits", habitRoutes);
+app.use("/api/reminders", reminderRoutes);
 
 app.get("/", (_req, res) => {
   res.send("Backend is running successfully!");

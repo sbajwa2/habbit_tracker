@@ -1,32 +1,27 @@
 import { useState } from "react";
-import type { Reminder } from "../../types/reminder";
 import "./ReminderForm.css";
 
 type ReminderFormProps = {
-  onAdd: (reminder: Reminder) => void;
+  onAdd: (title: string, time: string) => Promise<void>;
 };
 
 export default function ReminderForm({ onAdd }: ReminderFormProps) {
-  const [text, setText] = useState("");
+  const [title, setTitle] = useState("");
   const [time, setTime] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const cleanText = text.trim();
-    if (!cleanText) {
+    const cleanTitle = title.trim();
+    if (!cleanTitle) {
       setError("Reminder text cannot be empty.");
       return;
     }
 
-    onAdd({
-      id: Date.now(),
-      text: cleanText,
-      time: time.trim() || "Anytime",
-    });
+    await onAdd(cleanTitle, time);
 
-    setText("");
+    setTitle("");
     setTime("");
     setError("");
   };
@@ -36,9 +31,9 @@ export default function ReminderForm({ onAdd }: ReminderFormProps) {
       <div className="reminder-form-row">
         <input
           className="reminder-input"
-          value={text}
+          value={title}
           onChange={(e) => {
-            setText(e.target.value);
+            setTitle(e.target.value);
             if (error) setError("");
           }}
           placeholder="Enter reminder..."

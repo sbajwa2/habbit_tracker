@@ -1,50 +1,48 @@
 import type { Reminder } from "../types/reminder";
-import { reminderTestData } from "../data/reminderTestData";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:3001";
+const REMINDERS_ENDPOINT = `${API_BASE_URL}/api/reminders`;
 
-const STORAGE_KEY = "habbit_tracker_reminders_v1";
+type CreateReminderInput = {
+  title: string;
+  time: string;
+};
 
-function loadFromStorage(): Reminder[] | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    return JSON.parse(raw) as Reminder[];
-  } catch {
-    return null;
+const parseJsonResponse = async <T>(response: Response): Promise<T> => {
+  if (!response.ok) {
+    const errorMessage = await response.text();
+    throw new Error(errorMessage || "Request failed");
   }
-}
 
-function saveToStorage(reminders: Reminder[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(reminders));
-}
+  return (await response.json()) as T;
+};
 
 class ReminderRepository {
-  private reminders: Reminder[];
+  async getAll(): Promise<Reminder[]> {
+    const response = await fetch(REMINDERS_ENDPOINT);
+    return parseJsonResponse<Reminder[]>(response);
+  }
 
-  constructor() {
-    const saved = loadFromStorage();
-    this.reminders = saved ?? [...reminderTestData];
+  async add(data: CreateReminderInput): Promise<Reminder> {
+    const response = await fetch(REMINDERS_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-    if (!saved) {
-      saveToStorage(this.reminders);
+    return parseJsonResponse<Reminder>(response);
+  }
+
+  async remove(id: number): Promise<void> {
+    const response = await fetch(`${REMINDERS_ENDPOINT}/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || "Failed to delete reminder");
     }
-  }
-
-  getAll(): Reminder[] {
-    return [...this.reminders];
-  }
-
-  add(reminder: Reminder): void {
-    this.reminders = [...this.reminders, reminder];
-    saveToStorage(this.reminders);
-  }
-
-  remove(id: number): void {
-    this.reminders = this.reminders.filter((r) => r.id !== id);
-    saveToStorage(this.reminders);
-  }
-  resetToTestData(): void {
-    this.reminders = [...reminderTestData];
-    saveToStorage(this.reminders);
   }
 }
 

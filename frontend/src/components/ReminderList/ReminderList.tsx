@@ -12,13 +12,13 @@ export default function ReminderList({ reminders, onRemove }: ReminderListProps)
       <h2>Reminders</h2>
 
       {reminders.length === 0 ? (
-        <p>No reminders left 🎉</p>
+        <p>No reminders left </p>
       ) : (
         <ul>
           {reminders.map((reminder) => (
             <li key={reminder.id} className="reminder-item">
               <div>
-                <span className="reminder-text">{reminder.text}</span>
+                <span className="reminder-text">{reminder.title}</span>
                 <span className="reminder-time">{reminder.time}</span>
               </div>
 
