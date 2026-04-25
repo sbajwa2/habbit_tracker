@@ -18,8 +18,12 @@ dist-ssr
 backend/dist/
 frontend/dist/
 
-# Local environment files
+# Environment files
+.env
+*.env
 *.local
+
+# Explicit paths 
 backend/.env
 frontend/.env
 

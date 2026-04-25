@@ -11,6 +11,7 @@ model Habit {
   id        Int     @id @default(autoincrement())
   name      String
   completed Boolean @default(false)
+  userId    String?
 }
 
 model Reminder {

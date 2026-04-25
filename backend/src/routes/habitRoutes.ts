@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { requireAuth } from "@clerk/express";
 import {
   createHabit,
   deleteHabit,
@@ -13,13 +14,24 @@ import {
 
 const habitRouter = Router();
 
-habitRouter.get("/", getHabits);
-habitRouter.post("/", validateRequest("body", createHabitBodySchema), createHabit);
+habitRouter.get("/", requireAuth(), getHabits);
+habitRouter.post(
+  "/",
+  requireAuth(),
+  validateRequest("body", createHabitBodySchema),
+  createHabit
+);
 habitRouter.patch(
   "/:id/toggle",
+  requireAuth(),
   validateRequest("params", habitIdParamsSchema),
   toggleHabit
 );
-habitRouter.delete("/:id", validateRequest("params", habitIdParamsSchema), deleteHabit);
+habitRouter.delete(
+  "/:id",
+  requireAuth(),
+  validateRequest("params", habitIdParamsSchema),
+  deleteHabit
+);
 
 export default habitRouter;

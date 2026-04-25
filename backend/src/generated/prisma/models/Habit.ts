@@ -38,18 +38,21 @@ export type HabitMinAggregateOutputType = {
   id: number | null
   name: string | null
   completed: boolean | null
+  userId: string | null
 }
 
 export type HabitMaxAggregateOutputType = {
   id: number | null
   name: string | null
   completed: boolean | null
+  userId: string | null
 }
 
 export type HabitCountAggregateOutputType = {
   id: number
   name: number
   completed: number
+  userId: number
   _all: number
 }
 
@@ -66,18 +69,21 @@ export type HabitMinAggregateInputType = {
   id?: true
   name?: true
   completed?: true
+  userId?: true
 }
 
 export type HabitMaxAggregateInputType = {
   id?: true
   name?: true
   completed?: true
+  userId?: true
 }
 
 export type HabitCountAggregateInputType = {
   id?: true
   name?: true
   completed?: true
+  userId?: true
   _all?: true
 }
 
@@ -171,6 +177,7 @@ export type HabitGroupByOutputType = {
   id: number
   name: string
   completed: boolean
+  userId: string | null
   _count: HabitCountAggregateOutputType | null
   _avg: HabitAvgAggregateOutputType | null
   _sum: HabitSumAggregateOutputType | null
@@ -200,12 +207,14 @@ export type HabitWhereInput = {
   id?: Prisma.IntFilter<"Habit"> | number
   name?: Prisma.StringFilter<"Habit"> | string
   completed?: Prisma.BoolFilter<"Habit"> | boolean
+  userId?: Prisma.StringNullableFilter<"Habit"> | string | null
 }
 
 export type HabitOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
 }
 
 export type HabitWhereUniqueInput = Prisma.AtLeast<{
@@ -215,12 +224,14 @@ export type HabitWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.HabitWhereInput | Prisma.HabitWhereInput[]
   name?: Prisma.StringFilter<"Habit"> | string
   completed?: Prisma.BoolFilter<"Habit"> | boolean
+  userId?: Prisma.StringNullableFilter<"Habit"> | string | null
 }, "id">
 
 export type HabitOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.HabitCountOrderByAggregateInput
   _avg?: Prisma.HabitAvgOrderByAggregateInput
   _max?: Prisma.HabitMaxOrderByAggregateInput
@@ -235,51 +246,60 @@ export type HabitScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Habit"> | number
   name?: Prisma.StringWithAggregatesFilter<"Habit"> | string
   completed?: Prisma.BoolWithAggregatesFilter<"Habit"> | boolean
+  userId?: Prisma.StringNullableWithAggregatesFilter<"Habit"> | string | null
 }
 
 export type HabitCreateInput = {
   name: string
   completed?: boolean
+  userId?: string | null
 }
 
 export type HabitUncheckedCreateInput = {
   id?: number
   name: string
   completed?: boolean
+  userId?: string | null
 }
 
 export type HabitUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HabitUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HabitCreateManyInput = {
   id?: number
   name: string
   completed?: boolean
+  userId?: string | null
 }
 
 export type HabitUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HabitUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HabitCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type HabitAvgOrderByAggregateInput = {
@@ -290,12 +310,14 @@ export type HabitMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type HabitMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type HabitSumOrderByAggregateInput = {
@@ -308,6 +330,10 @@ export type StringFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -324,27 +350,31 @@ export type HabitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   name?: boolean
   completed?: boolean
+  userId?: boolean
 }, ExtArgs["result"]["habit"]>
 
 export type HabitSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   completed?: boolean
+  userId?: boolean
 }, ExtArgs["result"]["habit"]>
 
 export type HabitSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   completed?: boolean
+  userId?: boolean
 }, ExtArgs["result"]["habit"]>
 
 export type HabitSelectScalar = {
   id?: boolean
   name?: boolean
   completed?: boolean
+  userId?: boolean
 }
 
-export type HabitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "completed", ExtArgs["result"]["habit"]>
+export type HabitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "completed" | "userId", ExtArgs["result"]["habit"]>
 
 export type $HabitPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Habit"
@@ -353,6 +383,7 @@ export type $HabitPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: number
     name: string
     completed: boolean
+    userId: string | null
   }, ExtArgs["result"]["habit"]>
   composites: {}
 }
@@ -779,6 +810,7 @@ export interface HabitFieldRefs {
   readonly id: Prisma.FieldRef<"Habit", 'Int'>
   readonly name: Prisma.FieldRef<"Habit", 'String'>
   readonly completed: Prisma.FieldRef<"Habit", 'Boolean'>
+  readonly userId: Prisma.FieldRef<"Habit", 'String'>
 }
     
 
