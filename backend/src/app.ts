@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { clerkMiddleware } from "@clerk/express";
 import habitRoutes from "./routes/habitRoutes";
 import reminderRoutes from "./routes/reminderRoutes";
 
@@ -25,6 +26,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(clerkMiddleware());
 app.use("/api/habits", habitRoutes);
 app.use("/api/reminders", reminderRoutes);
 
