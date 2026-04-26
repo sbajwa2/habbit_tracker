@@ -595,7 +595,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const HabitScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  completed: 'completed'
+  completed: 'completed',
+  userId: 'userId'
 } as const
 
 export type HabitScalarFieldEnum = (typeof HabitScalarFieldEnum)[keyof typeof HabitScalarFieldEnum]
@@ -603,6 +604,7 @@ export type HabitScalarFieldEnum = (typeof HabitScalarFieldEnum)[keyof typeof Ha
 
 export const ReminderScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   title: 'title',
   time: 'time',
   createdAt: 'createdAt'
@@ -625,6 +627,14 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 

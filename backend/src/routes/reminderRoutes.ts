@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { requireAuth } from "@clerk/express";
 import {
   createReminder,
   deleteReminder,
@@ -12,14 +13,17 @@ import {
 
 const reminderRouter = Router();
 
-reminderRouter.get("/", getReminders);
+// Reminder endpoints require an authenticated Clerk session.
+reminderRouter.get("/", requireAuth(), getReminders);
 reminderRouter.post(
   "/",
+  requireAuth(),
   validateRequest("body", createReminderBodySchema),
   createReminder
 );
 reminderRouter.delete(
   "/:id",
+  requireAuth(),
   validateRequest("params", reminderIdParamsSchema),
   deleteReminder
 );

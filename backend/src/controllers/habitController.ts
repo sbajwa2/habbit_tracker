@@ -1,9 +1,17 @@
 import type { Request, Response } from "express";
+import { getAuth } from "@clerk/express";
 import { habitService } from "../services/habitService";
 
-export const getHabits = async (_req: Request, res: Response) => {
+export const getHabits = async (req: Request, res: Response) => {
   try {
-    const habits = await habitService.getAllHabits();
+    const { userId } = getAuth(req);
+
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
+    const habits = await habitService.getAllHabits(userId);
     res.status(200).json(habits);
   } catch (error) {
     console.error("Failed to fetch habits", error);
@@ -13,8 +21,15 @@ export const getHabits = async (_req: Request, res: Response) => {
 
 export const createHabit = async (req: Request, res: Response) => {
   try {
+    const { userId } = getAuth(req);
+
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
     const { name } = req.body as { name: string };
-    const newHabit = await habitService.createHabit(name);
+    const newHabit = await habitService.createHabit(name, userId);
     res.status(201).json(newHabit);
   } catch (error) {
     console.error("Failed to create habit", error);
@@ -24,8 +39,15 @@ export const createHabit = async (req: Request, res: Response) => {
 
 export const toggleHabit = async (req: Request, res: Response) => {
   try {
+    const { userId } = getAuth(req);
+
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
     const { id } = req.params as { id: string };
-    const updatedHabit = await habitService.toggleHabit(Number(id));
+    const updatedHabit = await habitService.toggleHabit(Number(id), userId);
 
     if (!updatedHabit) {
       res.status(404).json({ message: "Habit not found" });
@@ -41,8 +63,15 @@ export const toggleHabit = async (req: Request, res: Response) => {
 
 export const deleteHabit = async (req: Request, res: Response) => {
   try {
+    const { userId } = getAuth(req);
+
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
     const { id } = req.params as { id: string };
-    const deleted = await habitService.deleteHabit(Number(id));
+    const deleted = await habitService.deleteHabit(Number(id), userId);
 
     if (!deleted) {
       res.status(404).json({ message: "Habit not found" });

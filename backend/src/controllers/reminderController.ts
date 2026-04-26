@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { getAuth } from "@clerk/express";
 import * as reminderService from "../services/reminderService";
 
 type CreateReminderBody = {
@@ -6,9 +7,16 @@ type CreateReminderBody = {
   time: string;
 };
 
-export async function getReminders(_req: Request, res: Response) {
+export async function getReminders(req: Request, res: Response) {
   try {
-    const reminders = await reminderService.getReminders();
+    // All reminder data is scoped to the authenticated Clerk user.
+    const { userId } = getAuth(req);
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
+    const reminders = await reminderService.getReminders(userId);
     res.status(200).json(reminders);
   } catch (error) {
     console.error("Failed to fetch reminders", error);
@@ -18,8 +26,15 @@ export async function getReminders(_req: Request, res: Response) {
 
 export async function createReminder(req: Request, res: Response) {
   try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
     const reminder = await reminderService.createReminder(
-      req.body as CreateReminderBody
+      req.body as CreateReminderBody,
+      userId
     );
     res.status(201).json(reminder);
   } catch (error) {
@@ -30,8 +45,19 @@ export async function createReminder(req: Request, res: Response) {
 
 export async function deleteReminder(req: Request, res: Response) {
   try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
     const id = Number(req.params.id);
-    await reminderService.deleteReminder(id);
+    const deleted = await reminderService.deleteReminder(id, userId);
+    if (!deleted) {
+      res.status(404).json({ message: "Reminder not found" });
+      return;
+    }
+
     res.status(204).send();
   } catch (error) {
     console.error("Failed to delete reminder", error);
