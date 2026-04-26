@@ -2,24 +2,26 @@ import type { Habit } from "../generated/prisma/client";
 import { prisma } from "../db/prisma";
 
 export class HabitService {
-  async getAllHabits(): Promise<Habit[]> {
+  async getAllHabits(userId: string): Promise<Habit[]> {
     return prisma.habit.findMany({
+      where: { userId },
       orderBy: { id: "asc" },
     });
   }
 
-  async createHabit(name: string): Promise<Habit> {
+  async createHabit(name: string, userId: string): Promise<Habit> {
     return prisma.habit.create({
       data: {
         name,
         completed: false,
+        userId,
       },
     });
   }
 
-  async toggleHabit(id: number): Promise<Habit | null> {
-    const existingHabit = await prisma.habit.findUnique({
-      where: { id },
+  async toggleHabit(id: number, userId: string): Promise<Habit | null> {
+    const existingHabit = await prisma.habit.findFirst({
+      where: { id, userId },
     });
 
     if (!existingHabit) {
@@ -32,9 +34,9 @@ export class HabitService {
     });
   }
 
-  async deleteHabit(id: number): Promise<boolean> {
+  async deleteHabit(id: number, userId: string): Promise<boolean> {
     const deleteResult = await prisma.habit.deleteMany({
-      where: { id },
+      where: { id, userId },
     });
 
     return deleteResult.count > 0;

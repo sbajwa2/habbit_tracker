@@ -27,6 +27,7 @@ app.use(
 
 app.use(express.json());
 app.use(clerkMiddleware());
+
 app.use("/api/habits", habitRoutes);
 app.use("/api/reminders", reminderRoutes);
 

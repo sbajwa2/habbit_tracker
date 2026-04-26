@@ -1,96 +1,164 @@
 # Habit Tracker Project
 
-## Team Name
-Team 2
+## Team Name  
+Team 2  
 
-## Team Members
-- Member 1: Smilepreet Kaur Bajwa   
-- Member 2: Navpreet Kaur 
+## Team Members  
+- Smilepreet Kaur Bajwa  
+- Navpreet Kaur  
 
-## Project Description
-This project is a Habit Tracker application designed to help users build and maintain habbits. It will help the user be consistant and productive while living a balanced lifestyle.
+---
 
-### User Stories
+## Project Description  
+This project is a Habit Tracker application designed to help users build and maintain habits. It allows users to stay consistent, track their daily activities, and maintain a productive and balanced lifestyle.  
+
+The application supports user authentication and ensures that each user can manage their own personalized habits.
+
+---
+
+## User Stories  
 - As a user, I want to add new habits so that I can keep track of the things I want to do regularly.  
-- As a user, I want to see a statistical data of my progress.  
-- As a user, I want to receive reminders for my habits so that I don't forget to complete them.
+- As a user, I want to view my habits so that I can stay consistent.  
+- As a user, I want to receive reminders so that I don’t forget my tasks.  
 
-## Local Setup
+---
 
-### 1. Install dependencies
-From the project root:
+# Local Setup Instructions
 
+## Prerequisites  
+Make sure you have the following installed:  
+
+- Node.js  
+- npm  
+- PostgreSQL  
+- Git  
+
+---
+
+## 1. Clone the Repository  
+
+```bash
+git clone <your-repository-link>
+cd habit_tracker
+```
+
+---
+
+## 2. Install Dependencies  
+
+```bash
 npm install
+```
 
-### 2. Configure environment variables
-Create these files:
+---
 
-- frontend/.env
-- backend/.env
+## 3. Environment Variables  
 
-Use the following variables.
+### Frontend (`frontend/.env`)
 
-frontend/.env
-VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+```env
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_xxx
 VITE_API_BASE_URL=http://localhost:3001
+```
 
-backend/.env
-CLERK_SECRET_KEY=your_clerk_secret_key
-CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-DATABASE_URL=your_postgres_connection_string
+---
+
+### Backend (`backend/.env`)
+
+```env
+DATABASE_URL="postgresql://USERNAME:PASSWORD@localhost:5432/habit_tracker_dev?schema=public"
+
+CLERK_SECRET_KEY=sk_test_xxx
+CLERK_PUBLISHABLE_KEY=pk_test_xxx
+
 FRONTEND_ORIGINS=http://localhost:5173,http://localhost:5174
+```
 
-Note:
-- Run commands normally after .env files are set.
-- Do not use temporary terminal overrides for DATABASE_URL.
+---
 
-### 3. Apply database migrations
-From the backend workspace:
+## 4. Database Setup (Prisma)
 
-npm run -w backend prisma:migrate:dev
+```bash
+cd backend
+npx prisma migrate dev
+npx prisma generate
+```
 
-Optional checks:
+(Optional reset)
 
-npm run -w backend prisma:migrate:status
-npm run -w backend prisma:studio
+```bash
+npx prisma migrate reset
+```
 
-### 4. Start the applications
-From the project root, in separate terminals:
+---
 
-npm run dev
-npm run dev:backend
+## 5. Run the Application  
 
-Frontend runs on http://localhost:5173 and backend runs on http://localhost:3001.
+### Frontend  
 
-## Reminder Auth Test Checklist
+```bash
+npm run dev --workspace frontend
+```
 
-Use this checklist to verify the Individual Requirement for user-associated reminder data and session management.
+---
 
-1. Open the app while logged out.
-2. Navigate to Reminders.
-3. Confirm a sign-in prompt is shown and reminder form/list actions are not available.
-4. Sign in with Clerk.
-5. Add a new reminder and confirm it appears in your list.
-6. Refresh the page and confirm reminders still load for the signed-in user.
-7. Sign out and confirm reminders are no longer shown.
-8. Sign in with a different account and confirm the first account's reminders are not displayed.
+### Backend  
 
-### API Checks (Token + User Scope)
+```bash
+npm run dev --workspace backend
+```
 
-Use these API checks to verify session-token auth and user-scoped reminder access.
+---
 
-1. Get a valid Clerk session token after signing in.
-2. Request reminders with token:
+### Prisma Studio (optional)  
 
-curl -H "Authorization: Bearer <SESSION_TOKEN>" http://localhost:3001/api/reminders
+```bash
+cd backend
+npm run prisma:studio
+```
 
-3. Create reminder with token:
+---
 
-curl -X POST http://localhost:3001/api/reminders -H "Authorization: Bearer <SESSION_TOKEN>" -H "Content-Type: application/json" -d "{\"title\":\"API reminder\",\"time\":\"Anytime\"}"
+## pplication URLs  
 
-4. Request reminders without token and confirm unauthorized response:
+- Frontend: http://localhost:5173  
+- Backend: http://localhost:3001  
 
-curl http://localhost:3001/api/reminders
+---
 
-5. Sign in as a second user and repeat step 2.
-6. Confirm first user's reminder created in step 3 is not returned for the second user.
+## Authentication  
+
+This application uses Clerk for authentication and authorization.
+
+- Users can sign up and log in using email or Google  
+- Each user has their own data stored in the database  
+- Users must be logged in to manage habits  
+
+---
+
+## Notes  
+
+- Data is persistent in PostgreSQL  
+- Each habit is linked to a specific user  
+- Users cannot see each other's data  
+- Backend routes are protected using Clerk  
+
+---
+
+## Summary  
+
+This project demonstrates a full-stack application using:
+
+- React (Frontend)  
+- Express + TypeScript (Backend)  
+- PostgreSQL + Prisma (Database)  
+- Clerk (Authentication)  
+
+---
+
+## Future Improvements  
+
+- Add reminders functionality  
+- Add analytics and charts  
+- Improve UI design  
+- Deploy using Vercel  
