@@ -16,7 +16,10 @@ model Habit {
 
 model Reminder {
   id        Int      @id @default(autoincrement())
+  userId    String
   title     String
   time      String
   createdAt DateTime @default(now())
+
+  @@index([userId])
 }

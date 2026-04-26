@@ -83,6 +83,7 @@ export type HabitScalarFieldEnum = (typeof HabitScalarFieldEnum)[keyof typeof Ha
 
 export const ReminderScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   title: 'title',
   time: 'time',
   createdAt: 'createdAt'
